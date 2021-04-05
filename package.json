@@ -1,0 +1,18 @@
+{
+  "name": "colivBackup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "firestore-export-import": "^0.13.0",
+    "moment": "^2.29.1",
+    "promise-mysql": "^5.0.3",
+    "uuid": "^8.3.2"
+  }
+}
