@@ -1,6 +1,6 @@
 const { backup, backups, initializeApp } = require('firestore-export-import')
-const serviceAccount = require('./colivhq-dev.json')
-// const serviceAccount = require('./colivhq.json')
+// const serviceAccount = require('./colivhq-dev.json')
+const serviceAccount = require('./colivhq.json')
 const fs = require('fs')
 const uuid = require('uuid')
 const moment = require('moment')
@@ -16,97 +16,97 @@ const options = {
 
 
 // Start exporting your data
-// backup('activities').then(async data => {
-//     // console.log('DDDDDD',data,'DDDDDDDD')
-//     let conn = await db.connection
-//     let colData = await getCollectionData(conn, data.activities, 'activities', false)
-//     let latest = { date: "", id: "" }
-//     colData.map((val, index) => {
-//         if (index === 0) {
-//             latest.date = val[27]
-//             latest.id = val[0]
-//         } else {
-//             if (latest.date < val[27]) {
-//                 latest.date = val[27]
-//                 latest.id = val[0]
-//             }
-//         }
-//         // console.log('======vvv', val[27], 'vvv======', val[0])
-//     })
-//     console.log("lllll", latest, "lllll")
-//     // console.log('-----', colData[colData.length - 1], '-------')
-//     await conn.query(`INSERT INTO activities (
-//                                                 id,
-//                                                 opportunityId,
-//                                                 issueId,
-//                                                 homeId,
-//                                                 roomId,
-//                                                 bedId,
-//                                                 activityId,
-//                                                 activityType,
-//                                                 activityDescription,
-//                                                 todo,
-//                                                 completed,
-//                                                 todoOwner,
-//                                                 todoDate,
-//                                                 meeting,
-//                                                 meetingDate,
-//                                                 meetingLocation,
-//                                                 vendorId,
-//                                                 vendorName,
-//                                                 email,
-//                                                 activities.from,
-//                                                 activities.to,
-//                                                 subject,
-//                                                 body,
-//                                                 recurring,
-//                                                 frequency,
-//                                                 startDate,
-//                                                 endDate,
-//                                                 createdDate,
-//                                                 operatorId,
-//                                                 createdBy,
-//                                                 emailTrackingId,
-//                                                 messageId
-//                                             ) VALUES ?`, [colData])
-// })
-
-
-backup('issues').then(async data => {
-    console.log('DDDDDD',data,'DDDDDDDD')
+backup('activities').then(async data => {
+    console.log('DDDDDD',Object.keys(data.activities),'DDDDDDDD')
     let conn = await db.connection
-    let colData = await getCollectionData(conn, data.issues, 'issues', false)
+    let colData = await getCollectionData(conn, data.activities, 'activities', false)
     let latest = { date: "", id: "" }
     colData.map((val, index) => {
         if (index === 0) {
-            latest.date = val[10]
+            latest.date = val[27]
             latest.id = val[0]
         } else {
-            if (latest.date < val[10]) {
-                latest.date = val[10]
+            if (latest.date < val[27]) {
+                latest.date = val[27]
                 latest.id = val[0]
             }
         }
         // console.log('======vvv', val[27], 'vvv======', val[0])
     })
     console.log("lllll", latest, "lllll")
-    console.log('-----', colData, '-------')
-    await conn.query(`INSERT INTO issues (
-                                            id,
-                                            type,
-                                            status,
-                                            homeId,
-                                            roomId,
-                                            bedId,
-                                            urgency,
-                                            description,
-                                            owner,
-                                            solvedDate,
-                                            createdDate,
-                                            operatorId,
-                                            createdBy
+    // console.log('-----', colData[colData.length - 1], '-------')
+    await conn.query(`INSERT INTO activities (
+                                                id,
+                                                opportunityId,
+                                                issueId,
+                                                homeId,
+                                                roomId,
+                                                bedId,
+                                                activityId,
+                                                activityType,
+                                                activityDescription,
+                                                todo,
+                                                completed,
+                                                todoOwner,
+                                                todoDate,
+                                                meeting,
+                                                meetingDate,
+                                                meetingLocation,
+                                                vendorId,
+                                                vendorName,
+                                                email,
+                                                activities.from,
+                                                activities.to,
+                                                subject,
+                                                body,
+                                                recurring,
+                                                frequency,
+                                                startDate,
+                                                endDate,
+                                                createdDate,
+                                                operatorId,
+                                                createdBy,
+                                                emailTrackingId,
+                                                messageId
                                             ) VALUES ?`, [colData])
 })
+
+
+// backup('issues').then(async data => {
+//     console.log('DDDDDD',data,'DDDDDDDD')
+//     let conn = await db.connection
+//     let colData = await getCollectionData(conn, data.issues, 'issues', false)
+//     let latest = { date: "", id: "" }
+//     colData.map((val, index) => {
+//         if (index === 0) {
+//             latest.date = val[10]
+//             latest.id = val[0]
+//         } else {
+//             if (latest.date < val[10]) {
+//                 latest.date = val[10]
+//                 latest.id = val[0]
+//             }
+//         }
+//         // console.log('======vvv', val[27], 'vvv======', val[0])
+//     })
+//     console.log("lllll", latest, "lllll")
+//     console.log('-----', colData, '-------')
+//     await conn.query(`INSERT INTO issues (
+//                                             id,
+//                                             type,
+//                                             status,
+//                                             homeId,
+//                                             roomId,
+//                                             bedId,
+//                                             urgency,
+//                                             description,
+//                                             owner,
+//                                             solvedDate,
+//                                             createdDate,
+//                                             operatorId,
+//                                             createdBy
+//                                             ) VALUES ?`, [colData])
+// })
 
 // backup('members').then(async data => {
 //     // console.log('DDDDDD',data,'DDDDDDDD')
@@ -227,7 +227,7 @@ async function getCollectionData(conn, data, colName, subcol, parentId) {
                     actData.activityType = "Call"
 
                 let dat = await conn.query(`SELECT * FROM activities WHERE id="${id}"`)
-                if (!dat || (dat && !dat.length))
+                // if (!dat || (dat && !dat.length))
                     dataForSql = [
                         id,
                         actData.opportunityId ? actData.opportunityId.id : null,
